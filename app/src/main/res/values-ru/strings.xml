@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StudentAttendanceProject</string>
+    <string name="profile_language">Язык</string>
+    <string name="profile_my_profile">Мой профиль</string>
+    <string name="personal_data">Личные данные</string>
+    <string name="change_your_password">Сменить пароль</string>
+    <string name="dark_mode">Темный режим</string>
+    <string name="profile">Профиль</string>
+    <string name="language_edit">Русский</string>
+    <string name="bugingi_sabaqtar">Уроки сегодня</string>
+    <string name="Exit">Выход</string>
+    <string name="Do_you_really_log_out_of_our_account">Вы действительно выходите из своего аккаунта?</string>
+    <string name="Yes_exit">Да, выйти</string>
+    <string name="No">Нет</string>
+    <string name="Full_name">ФИО</string>
+    <string name="Email">Эл. почта</string>
+    <string name="University">ВУЗ</string>
+    <string name="Educational_program">Образовательная программа</string>
+    <string name="Course">Курс</string>
+    <string name="Group">Группа</string>
+    <string name="Status">Статус</string>
+    <string name="Mobile_phone">Мобильный телефон</string>
+    <string name="Date_of_birth">Дата рождения</string>
+</resources>

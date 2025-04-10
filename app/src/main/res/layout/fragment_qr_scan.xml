@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <!-- Камера -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"/>
+
+    <ImageView
+        android:id="@+id/topLeftCorner"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="50dp"
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:id="@+id/topRightCorner"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="50dp"
+        android:scaleType="fitXY"
+        android:rotation="90"
+        android:layout_gravity="end"/>
+
+    <ImageView
+        android:id="@+id/bottomLeftCorner"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="400dp"
+        android:layout_marginStart="50dp"
+        android:scaleType="fitXY"
+        android:rotation="270"
+        android:layout_gravity="bottom"/>
+
+    <ImageView
+        android:id="@+id/bottomRightCorner"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="400dp"
+        android:layout_marginEnd="50dp"
+        android:scaleType="fitXY"
+        android:rotation="180"
+        android:layout_gravity="bottom|end"/>
+
+    <!-- Затемненный фон с прозрачным окном -->
+
+    <!-- Текст "Сканируйте QR" -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/qr_mask" />
+
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QR сканерлеңіз"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/sf_bold_700"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="150dp"/>
+
+    <!-- Иконка закрытия -->
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp"
+        app:tint="@android:color/white" />
+
+</FrameLayout>

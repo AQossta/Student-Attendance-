@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StudentAttendanceProject</string>
+    <string name="profile_language">Language</string>
+    <string name="profile_my_profile">My profile</string>
+    <string name="personal_data">Personal data</string>
+    <string name="change_your_password">Update password</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="profile">Profile</string>
+    <string name="language_edit">English</string>
+    <string name="bugingi_sabaqtar">Lessons today</string>
+    <string name="Exit">Exit</string>
+    <string name="Do_you_really_log_out_of_our_account">Do you really log out of our account?</string>
+    <string name="Yes_exit">Yes, exit</string>
+    <string name="No">No</string>
+    <string name="Full_name">Full name</string>
+    <string name="Email">Email</string>
+    <string name="University">University</string>
+    <string name="Educational_program">Educational program</string>
+    <string name="Course">Course</string>
+    <string name="Group">Group</string>
+    <string name="Status">Status</string>
+    <string name="Mobile_phone">Mobile phone</string>
+    <string name="Date_of_birth">Date of birth</string>
+</resources>

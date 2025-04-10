@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StudentAttendanceProject</string>
+    <string name="profile_language">Тіл</string>
+    <string name="profile_my_profile">Менің профилім</string>
+    <string name="personal_data">Жеке деректер</string>
+    <string name="change_your_password">Құпия сөзді өзгерту</string>
+    <string name="dark_mode">Қараңғы режим</string>
+    <string name="profile">Профиль</string>
+    <string name="language_edit">Қазақша</string>
+    <string name="bugingi_sabaqtar">Бүгінгі сабақтар</string>
+    <string name="Exit">Шығу</string>
+    <string name="Do_you_really_log_out_of_our_account">Сіз шынымен аккаунтыныздан шығасыз ба?</string>
+    <string name="Yes_exit">Иә, шығу</string>
+    <string name="No">Жоқ</string>
+    <string name="Full_name">Аты-жөні</string>
+    <string name="Email">Эл. пошта</string>
+    <string name="University">ЖОО</string>
+    <string name="Educational_program">Білім беру бағдарламасы</string>
+    <string name="Course">Курс</string>
+    <string name="Group">Топ</string>
+    <string name="Status">Мәртебе</string>
+    <string name="Mobile_phone">Ұялы телефон</string>
+    <string name="Date_of_birth">Туылған күні</string>
+</resources>
