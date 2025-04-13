@@ -17,6 +17,9 @@ import com.example.studentattendanceproject2.Service.ApiService
 import com.example.studentattendanceproject2.databinding.FragmentQrGenerateBinding
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -28,6 +31,8 @@ class QrGenerateFragment : Fragment() {
     private val authViewModel: AuthViewModel by activityViewModels()
     private val apiService = ServiceBuilder.buildService(ApiService::class.java)
     private var scheduleData: ScheduleTeacherResponse? = null
+    private var qrGenerationJob: Job? = null
+    private var isGenerating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +62,32 @@ class QrGenerateFragment : Fragment() {
         binding.btnGenerate.setOnClickListener {
             scheduleData?.let { schedule ->
                 authViewModel.userData.value?.accessToken?.let { token ->
-                    generateQrCode(schedule.id, token)
+                    if (!isGenerating) {
+                        startQrGeneration(schedule.id, token)
+                        binding.btnGenerate.text = "Остановить"
+                        isGenerating = true
+                    } else {
+                        stopQrGeneration()
+                        binding.btnGenerate.text = "Генерировать"
+                        isGenerating = false
+                    }
                 } ?: Toast.makeText(requireContext(), "Токен отсутствует", Toast.LENGTH_SHORT).show()
             } ?: Toast.makeText(requireContext(), "Данные расписания отсутствуют", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun startQrGeneration(scheduleId: Long, authToken: String) {
+        qrGenerationJob = lifecycleScope.launch {
+            while (isActive) {
+                generateQrCode(scheduleId, authToken)
+                delay(60_000) // 1 минута
+            }
+        }
+    }
+
+    private fun stopQrGeneration() {
+        qrGenerationJob?.cancel()
+        qrGenerationJob = null
     }
 
     private fun generateQrCode(scheduleId: Long, authToken: String) {
@@ -111,6 +138,7 @@ class QrGenerateFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        stopQrGeneration() // Останавливаем генерацию при уничтожении фрагмента
         super.onDestroyView()
         _binding = null
     }
