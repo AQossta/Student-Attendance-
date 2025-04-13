@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentattendanceproject2.Data.ServiceBuilder
 import com.example.studentattendanceproject2.Login.AuthViewModel
+import com.example.studentattendanceproject2.R
 import com.example.studentattendanceproject2.Service.ApiService
 import com.example.studentattendanceproject2.databinding.FragmentHomeBinding
 import com.example.studentattendanceproject2.provideNavigationHost
@@ -25,7 +27,6 @@ class HomeFragment : Fragment() {
     private val apiService = ServiceBuilder.buildService(ApiService::class.java)
     private val authViewModel: AuthViewModel by activityViewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,19 +34,25 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.rcMainCategories1.layoutManager = LinearLayoutManager(requireContext())
-        adapter = ScheduleAdapter(emptyList())
+        adapter = ScheduleAdapter(emptyList(), emptyList()) { schedule ->
+            // Навигация к QrGenerateFragment с передачей объекта ScheduleTeacherResponse
+            val bundle = Bundle().apply {
+                putSerializable("scheduleData", schedule)
+            }
+            findNavController().navigate(R.id.action_homeFragment_to_qrGenerateFragment, bundle)
+        }
         binding.rcMainCategories1.adapter = adapter
 
         authViewModel.userData.observe(viewLifecycleOwner) { userData ->
             userData?.let {
-                for(item in it.roles){
-                    if(item.equals("teacher")) {
+                for (item in it.roles) {
+                    if (item.equals("teacher")) {
                         println("Пользователь является преподавателем")
                         fetchTeacherScheduleData(it.id, it.accessToken)
-                    } else if(item.equals("student")) {
+                    } else if (item.equals("student")) {
                         fetchScheduleData(it.groupId, it.accessToken)
                     } else {
-                        throw Exception("Неизвестная роль* пользователя: $item")
+                        throw Exception("Неизвестная роль пользователя: $item")
                     }
                 }
             } ?: run {
@@ -56,13 +63,13 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    private fun fetchTeacherScheduleData(teacherId: Long, accessToken: String){
+    private fun fetchTeacherScheduleData(lecturerId: Long, accessToken: String) {
         lifecycleScope.launch {
             try {
-                println("Используемый токен: $accessToken") // Вывод токена в консоль
-                println("Запрос расписания для преподавателя $teacherId отправлен...")
+                println("Используемый токен: $accessToken")
+                println("Запрос расписания для преподавателя $lecturerId отправлен...")
 
-                val response = apiService.scheduleTeacher(teacherId, accessToken)
+                val response = apiService.scheduleTeacher(lecturerId, accessToken)
 
                 if (response.body != null) {
                     println("Ответ получен: ${response.body}")
@@ -70,13 +77,12 @@ class HomeFragment : Fragment() {
                 } else {
                     println("Ошибка: ${response.message ?: "Пустой ответ сервера"}")
                 }
-
-                } catch (e: IOException) {
+            } catch (e: IOException) {
                 println("Ошибка сети: ${e.message}")
-                } catch (e: HttpException) {
+            } catch (e: HttpException) {
                 println("Ошибка сервера: ${e.code()} - ${e.message()}")
-                } catch (e: Exception) {
-                    println("Неизвестная ошибка: ${e.message}")
+            } catch (e: Exception) {
+                println("Неизвестная ошибка: ${e.message}")
             }
         }
     }
@@ -84,7 +90,7 @@ class HomeFragment : Fragment() {
     private fun fetchScheduleData(groupId: Long, accessToken: String) {
         lifecycleScope.launch {
             try {
-                println("Используемый токен: $accessToken") // Вывод токена в консоль
+                println("Используемый токен: $accessToken")
                 println("Запрос расписания для группы $groupId отправлен...")
 
                 val response = apiService.scheduleGroup(groupId, accessToken)
@@ -96,7 +102,6 @@ class HomeFragment : Fragment() {
                 } else {
                     println("Ошибка: ${response.message ?: "Пустой ответ сервера"}")
                 }
-
             } catch (e: IOException) {
                 println("Ошибка сети: ${e.message}")
             } catch (e: HttpException) {

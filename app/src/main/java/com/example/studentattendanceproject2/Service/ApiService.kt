@@ -13,6 +13,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("/api/v1/auth/sign-in")
@@ -26,7 +27,7 @@ interface ApiService {
 
     @GET("/api/v1/teacher/schedule/lecturer/{lecturerId}")
     suspend fun scheduleTeacher(
-        @Path("teacherId") teacherId: Long,
+        @Path("lecturerId") teacherId: Long,
         @Header("auth-token") authToken: String
     ): MessageResponse<List<ScheduleTeacherResponse>>
 
@@ -39,9 +40,9 @@ interface ApiService {
         }
     }
 
-    @POST("/api/v1/teacher/qr/generate/{scheduleId}")
+    @POST("/api/v1/teacher/qr/generate")
     suspend fun generateQrCode(
-        @Path("scheduleId") scheduleId: Long,
+        @Query("scheduleId") scheduleId: Long,
         @Header("auth-token") authToken: String
     ) : MessageResponse<QrBody>
 }

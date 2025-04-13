@@ -9,7 +9,8 @@ import com.example.studentattendanceproject2.databinding.ItemScheduleViewBinding
 
 class ScheduleAdapter(
     private var scheduleList: List<ScheduleGroupResponse> = emptyList(),
-    private var teacherScheduleList: List<ScheduleTeacherResponse> = emptyList()
+    private var teacherScheduleList: List<ScheduleTeacherResponse> = emptyList(),
+    private val onItemClick: (ScheduleTeacherResponse) -> Unit = {} // Изменяем тип на ScheduleTeacherResponse
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
@@ -45,7 +46,7 @@ class ScheduleAdapter(
         notifyDataSetChanged()
     }
 
-    class ScheduleViewHolder(private val binding: ItemScheduleViewBinding) :
+    inner class ScheduleViewHolder(private val binding: ItemScheduleViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ScheduleGroupResponse) {
@@ -54,6 +55,7 @@ class ScheduleAdapter(
             binding.tvSubject.text = item.subject
             binding.tvGroup.text = "Группа: ${item.groupName}"
             binding.tvTeacherName.text = "Преподаватель: ${item.teacherName}"
+            binding.root.setOnClickListener(null)
         }
 
         fun bindTeacher(item: ScheduleTeacherResponse) {
@@ -62,6 +64,9 @@ class ScheduleAdapter(
             binding.tvSubject.text = item.subject
             binding.tvGroup.text = "Группа: ${item.groupName}"
             binding.tvTeacherName.text = "Преподаватель: ${item.teacherName}"
+            binding.root.setOnClickListener {
+                onItemClick(item) // Передаем весь объект
+            }
         }
     }
 }

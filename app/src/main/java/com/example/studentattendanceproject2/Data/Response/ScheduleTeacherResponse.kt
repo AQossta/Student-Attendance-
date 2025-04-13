@@ -19,4 +19,4 @@ data class ScheduleTeacherResponse(
     val teacherName: String, // string
     @SerializedName("groupName")
     val groupName: String // string
-)
+) : java.io.Serializable
