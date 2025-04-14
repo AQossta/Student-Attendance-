@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.studentattendanceproject2.Data.Response.ScheduleTeacherResponse
-import com.example.studentattendanceproject2.Data.ServiceBuilder
-import com.example.studentattendanceproject2.Login.AuthViewModel
-import com.example.studentattendanceproject2.Service.ApiService
+import com.example.studentattendanceproject2.data.response.ScheduleTeacherResponse
+import com.example.studentattendanceproject2.data.ServiceBuilder
+import com.example.studentattendanceproject2.login.AuthViewModel
+import com.example.studentattendanceproject2.service.ApiService
 import com.example.studentattendanceproject2.databinding.FragmentQrGenerateBinding
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter

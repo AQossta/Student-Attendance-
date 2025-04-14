@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.studentattendanceproject2.SplashScreen.SplashFragment"
+        android:name="com.example.studentattendanceproject2.splashScreen.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.example.studentattendanceproject2.Onboarding.OnboardingFragment"
+        android:name="com.example.studentattendanceproject2.onboarding.OnboardingFragment"
         android:label="fragment_onboarding"
         tools:layout="@layout/fragment_onboarding" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.studentattendanceproject2.Login.LoginFragment"
+        android:name="com.example.studentattendanceproject2.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.studentattendanceproject2.Home.HomeFragment"
+        android:name="com.example.studentattendanceproject2.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.studentattendanceproject2.Profile.ProfileFragment"
+        android:name="com.example.studentattendanceproject2.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/personalDataFragment"
-        android:name="com.example.studentattendanceproject2.Profile.ProfileData.PersonalDataFragment"
+        android:name="com.example.studentattendanceproject2.profile.profileData.PersonalDataFragment"
         android:label="fragment_personal_data"
         tools:layout="@layout/fragment_personal_data" />
     <fragment
