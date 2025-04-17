@@ -1,84 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:layout_height="match_parent">
 
-    <!-- Камера -->
+    <!-- Camera Preview -->
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"/>
+        android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/topLeftCorner"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="50dp"
-        android:scaleType="fitXY"/>
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp"
+            android:text="Закрыть" />
 
-    <ImageView
-        android:id="@+id/topRightCorner"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="50dp"
-        android:scaleType="fitXY"
-        android:rotation="90"
-        android:layout_gravity="end"/>
+        <TextView
+            android:id="@+id/tvHint"
+            android:layout_width="wrap_content"
+            android:layout_height="66dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="16dp"
+            android:text="Наведите камеру на QR-код"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+    </androidx.camera.view.PreviewView>
 
-    <ImageView
-        android:id="@+id/bottomLeftCorner"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="400dp"
-        android:layout_marginStart="50dp"
-        android:scaleType="fitXY"
-        android:rotation="270"
-        android:layout_gravity="bottom"/>
-
-    <ImageView
-        android:id="@+id/bottomRightCorner"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="400dp"
-        android:layout_marginEnd="50dp"
-        android:scaleType="fitXY"
-        android:rotation="180"
-        android:layout_gravity="bottom|end"/>
-
-    <!-- Затемненный фон с прозрачным окном -->
+    <!-- QR Code Frame Overlay -->
     <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/qr_mask" />
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:background="@drawable/qr_frame" />
 
-    <!-- Текст "Сканируйте QR" -->
-    <TextView
-        android:id="@+id/tvHint"
+    <!-- Hint Text -->
+
+    <!-- Close Button -->
+
+    <!-- Attend Button -->
+    <Button
+        android:id="@+id/attendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QR сканерлеңіз"
-        android:textSize="16sp"
-        android:textColor="@android:color/white"
-        android:fontFamily="@font/sf_bold_700"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="150dp"/>
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
+        android:text="Отметить посещение"
+        android:visibility="gone" />
 
-    <!-- Иконка закрытия -->
-    <ImageView
-        android:id="@+id/btnClose"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:layout_gravity="top|end"
-        android:layout_margin="16dp"
-        app:tint="@android:color/white" />
-
-    <!-- ProgressBar -->
+    <!-- Progress Bar -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

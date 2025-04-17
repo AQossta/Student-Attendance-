@@ -50,6 +50,7 @@ interface ApiService {
 
     @POST("/api/v1/student/attendance/scan")
     suspend fun scanQrCode(
-        @Body request: QrScanRequest
+        @Body request: QrScanRequest,
+        @Header("auth-token") authToken: String
     ) : MessageResponse<Any>
 }
