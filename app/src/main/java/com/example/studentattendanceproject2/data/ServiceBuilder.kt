@@ -8,10 +8,11 @@ object ServiceBuilder {
     private val client = OkHttpClient.Builder().build()
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:8080/")
+        .baseUrl("http://192.168.1.7:8080/")  // <-- адрес твоего компьютера!
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
+
 
     fun<T> buildService(service: Class<T>): T{
         return retrofit.create(service)
