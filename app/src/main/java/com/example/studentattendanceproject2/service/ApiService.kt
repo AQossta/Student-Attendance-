@@ -7,6 +7,7 @@ import com.example.studentattendanceproject2.data.response.QrBody
 import com.example.studentattendanceproject2.data.response.ScheduleGroupResponse
 import com.example.studentattendanceproject2.data.response.ScheduleTeacherResponse
 import com.example.studentattendanceproject2.data.ServiceBuilder
+import com.example.studentattendanceproject2.data.request.QrScanRequest
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -45,4 +46,10 @@ interface ApiService {
         @Query("scheduleId") scheduleId: Long,
         @Header("auth-token") authToken: String
     ) : MessageResponse<QrBody>
+
+
+    @POST("/api/v1/student/attendance/scan")
+    suspend fun scanQrCode(
+        @Body request: QrScanRequest
+    ) : MessageResponse<Any>
 }
