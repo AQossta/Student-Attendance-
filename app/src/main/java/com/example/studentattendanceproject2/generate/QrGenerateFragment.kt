@@ -1,6 +1,7 @@
 package com.example.studentattendanceproject2.generate
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
+import android.util.Base64
 
 class QrGenerateFragment : Fragment() {
 
@@ -54,7 +56,8 @@ class QrGenerateFragment : Fragment() {
         scheduleData?.let { schedule ->
             binding.textViewSubject.text = schedule.subject
             binding.textViewGroup.text = "Группа: ${schedule.groupName}"
-            binding.textViewTime.text = "${schedule.startTime.split("T")[1].substring(0, 5)} - ${schedule.endTime.split("T")[1].substring(0, 5)}"
+            binding.textViewTime.text =
+                "${schedule.startTime.split("T")[1].substring(0, 5)} - ${schedule.endTime.split("T")[1].substring(0, 5)}"
         } ?: run {
             Toast.makeText(requireContext(), "Данные расписания отсутствуют", Toast.LENGTH_SHORT).show()
         }
@@ -80,7 +83,7 @@ class QrGenerateFragment : Fragment() {
         qrGenerationJob = lifecycleScope.launch {
             while (isActive) {
                 generateQrCode(scheduleId, authToken)
-                delay(60_000) // 1 минута
+                delay(60_000) // каждые 60 секунд
             }
         }
     }
@@ -95,21 +98,32 @@ class QrGenerateFragment : Fragment() {
             try {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.qrCodeImageView.visibility = View.GONE
-                println("Отправка запроса: POST /api/v1/teacher/qr/generate?scheduleId=$scheduleId с токеном: $authToken")
+                println("Отправка запроса: scheduleId=$scheduleId с токеном: $authToken")
+
                 val response = apiService.generateQrCode(scheduleId, authToken)
-                println("Ответ: code=${response.body?.qrCode}, message=${response.message}, body=${response.body}")
-                if (response.body != null) {
-                    val qrBody = response.body
-                    val qrBitmap = generateQrBitmap(qrBody.qrCode)
+                val body = response.body
+
+                if (body != null) {
+                    val qrCode = body.qrCode
+                    val qrBitmap: Bitmap = try {
+                        // Пробуем декодировать Base64
+                        val base64Data = if (qrCode.contains(",")) qrCode.split(",")[1] else qrCode
+                        val decodedBytes = Base64.decode(base64Data, Base64.DEFAULT)
+                        BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+                    } catch (e: IllegalArgumentException) {
+                        // Если не удалось, генерируем QR-код из текста
+                        generateQrBitmap(qrCode)
+                    }
+
                     binding.qrCodeImageView.setImageBitmap(qrBitmap)
                     binding.qrCodeImageView.visibility = View.VISIBLE
                     Toast.makeText(requireContext(), "QR-код сгенерирован", Toast.LENGTH_SHORT).show()
                 } else {
-                    println("Ошибка: пустой ответ от сервера, message=${response.message}")
-                    Toast.makeText(requireContext(), "Ошибка: ${response.message ?: "Пустой ответ сервера"}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Ошибка: пустой ответ от сервера", Toast.LENGTH_SHORT).show()
                 }
+
             } catch (e: HttpException) {
-                println("HTTP ошибка: ${e.code()} - ${e.message()} - ${e.response()?.errorBody()?.string()}")
+                println("HTTP ошибка: ${e.code()} - ${e.message()}")
                 Toast.makeText(requireContext(), "Ошибка сервера: ${e.code()}", Toast.LENGTH_SHORT).show()
             } catch (e: IOException) {
                 println("Ошибка сети: ${e.message}")
@@ -125,12 +139,11 @@ class QrGenerateFragment : Fragment() {
 
     private fun generateQrBitmap(qrCode: String): Bitmap {
         val writer = QRCodeWriter()
-        val bitMatrix = writer.encode(qrCode, BarcodeFormat.QR_CODE, 300, 300)
-        val width = bitMatrix.width
-        val height = bitMatrix.height
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-        for (x in 0 until width) {
-            for (y in 0 until height) {
+        val size = 512
+        val bitMatrix = writer.encode(qrCode, BarcodeFormat.QR_CODE, size, size)
+        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
+        for (x in 0 until size) {
+            for (y in 0 until size) {
                 bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
             }
         }
@@ -138,7 +151,7 @@ class QrGenerateFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        stopQrGeneration() // Останавливаем генерацию при уничтожении фрагмента
+        stopQrGeneration()
         super.onDestroyView()
         _binding = null
     }

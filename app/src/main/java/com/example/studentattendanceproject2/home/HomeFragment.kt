@@ -34,13 +34,24 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.rcMainCategories1.layoutManager = LinearLayoutManager(requireContext())
-        adapter = ScheduleAdapter(emptyList(), emptyList()) { schedule ->
-            // Навигация к QrGenerateFragment с передачей объекта ScheduleTeacherResponse
-            val bundle = Bundle().apply {
-                putSerializable("scheduleData", schedule)
+        adapter = ScheduleAdapter(
+            teacherScheduleList = emptyList(),
+            onItemClick = { item ->
+                // QR-код генерация экраны
+                val bundle = Bundle().apply {
+                    putSerializable("scheduleData", item)
+                }
+                findNavController().navigate(R.id.action_homeFragment_to_qrGenerateFragment, bundle)
+            },
+            onStatsClick = { item ->
+                // Статистика экраны
+                val bundle = Bundle().apply {
+                    putSerializable("scheduleData", item)
+                }
+                findNavController().navigate(R.id.action_homeFragment_to_statisticsFragment, bundle)
             }
-            findNavController().navigate(R.id.action_homeFragment_to_qrGenerateFragment, bundle)
-        }
+        )
+
         binding.rcMainCategories1.adapter = adapter
 
         authViewModel.userData.observe(viewLifecycleOwner) { userData ->

@@ -10,7 +10,8 @@ import com.example.studentattendanceproject2.databinding.ItemScheduleViewBinding
 class ScheduleAdapter(
     private var scheduleList: List<ScheduleGroupResponse> = emptyList(),
     private var teacherScheduleList: List<ScheduleTeacherResponse> = emptyList(),
-    private val onItemClick: (ScheduleTeacherResponse) -> Unit = {} // Изменяем тип на ScheduleTeacherResponse
+    private val onItemClick: (ScheduleTeacherResponse) -> Unit = {},
+    private val onStatsClick: (ScheduleTeacherResponse) -> Unit = {}
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
@@ -64,8 +65,13 @@ class ScheduleAdapter(
             binding.tvSubject.text = item.subject
             binding.tvGroup.text = "Группа: ${item.groupName}"
             binding.tvTeacherName.text = "Преподаватель: ${item.teacherName}"
+
             binding.root.setOnClickListener {
                 onItemClick(item) // Передаем весь объект
+            }
+
+            binding.btnStats.setOnClickListener {
+                onStatsClick(item) // ✅ Статистика батырмасы басылғанда
             }
         }
     }

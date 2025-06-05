@@ -50,6 +50,7 @@
 
         <!-- Правая часть (информация о паре) -->
         <LinearLayout
+            android:id="@+id/info_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -97,6 +98,13 @@
                 android:textSize="14sp"
                 android:textColor="#666666"/>
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_stats"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 

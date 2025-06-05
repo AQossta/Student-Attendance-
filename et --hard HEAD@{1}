@@ -1,0 +1,13 @@
+[33mdb20dd3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33mdb20dd3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{1}: pull: Fast-forward
+[33m623b4d9[m HEAD@{2}: reset: moving to HEAD
+[33m623b4d9[m HEAD@{3}: pull: Fast-forward
+[33m43e6a8f[m HEAD@{4}: reset: moving to HEAD
+[33m43e6a8f[m HEAD@{5}: pull: Fast-forward
+[33m1dc3c26[m HEAD@{6}: reset: moving to HEAD
+[33m1dc3c26[m HEAD@{7}: reset: moving to HEAD
+[33m1dc3c26[m HEAD@{8}: commit: -
+[33m18fb6f4[m HEAD@{9}: pull: Fast-forward
+[33me10f759[m HEAD@{10}: reset: moving to HEAD
+[33me10f759[m HEAD@{11}: Branch: renamed refs/heads/master to refs/heads/main
+[33me10f759[m HEAD@{13}: commit (initial): .

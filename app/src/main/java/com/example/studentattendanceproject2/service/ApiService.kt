@@ -7,6 +7,9 @@ import com.example.studentattendanceproject2.data.response.QrBody
 import com.example.studentattendanceproject2.data.response.ScheduleGroupResponse
 import com.example.studentattendanceproject2.data.response.ScheduleTeacherResponse
 import com.example.studentattendanceproject2.data.ServiceBuilder
+import com.example.studentattendanceproject2.data.request.ScanRequest
+import com.example.studentattendanceproject2.data.response.AttendanceStats
+import com.google.android.gms.common.api.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -40,9 +43,23 @@ interface ApiService {
         }
     }
 
-    @POST("/api/v1/teacher/qr/generate")
+    @POST("/api/v1/teacher/qr/generate/{scheduleId}")
     suspend fun generateQrCode(
-        @Query("scheduleId") scheduleId: Long,
+        @Path("scheduleId") scheduleId: Long,
         @Header("auth-token") authToken: String
     ) : MessageResponse<QrBody>
+
+
+    @POST("/api/v1/student/attendance/scan")
+    suspend fun scanQrCode(
+        @Body request: ScanRequest,
+        @Header("auth-token") authToken: String
+    ) : MessageResponse<Any>
+
+    @GET("/api/v1/teacher/attendance/statistics/{scheduleId}")
+    suspend fun getScheduleStats(
+        @Path("scheduleId") scheduleId: Int,
+        @Header("auth-token") authToken: String
+    ): MessageResponse<AttendanceStats>
+
 }

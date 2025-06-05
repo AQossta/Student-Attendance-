@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_homeFragment_to_qrGenerateFragment"
             app:destination="@id/qrGenerateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -63,4 +66,22 @@
         android:name="com.example.studentattendanceproject2.generate.QrGenerateFragment"
         android:label="QrGenerateFragment"
         tools:layout="@layout/fragment_qr_generate" />
+    <fragment
+        android:id="@+id/qrScanFragment"
+        android:name="com.example.studentattendanceproject2.qrScan.QrScanFragment"
+        android:label="QrScanFragment"
+        tools:layout="@layout/fragment_qr_scan">
+        <action
+            android:id="@+id/action_qrScanFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.example.studentattendanceproject2.home.StatisticsFragment"
+        android:label="StatisticsFragment"
+        tools:layout="@layout/fragment_statistics" >
+        <action
+            android:id="@+id/action_statisticsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

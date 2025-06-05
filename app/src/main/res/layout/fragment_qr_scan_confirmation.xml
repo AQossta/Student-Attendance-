@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_circle_32dp"
+    android:paddingBottom="24dp">
+
+    <View
+        android:id="@+id/dividerBottomsheet2"
+        android:layout_width="64dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/divider_5dp_grey_circle"
+        android:backgroundTint="@color/grey_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/txtSelectLesson"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="24dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/dividerBottomsheet2">
+
+        <TextView
+            android:id="@+id/tvSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_bold_700"
+            android:text="  Сабақ үшін сканерлеу түрін таңдаңыз:"
+            android:textColor="@color/blue"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSelectLesson">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUserYesLesson"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="24dp"
+            android:background="@drawable/background_button_12dp_circle"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/sf_bold"
+            android:gravity="center"
+            android:text="Сабаққа кіру"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="normal" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUserNoLesson"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_button_12dp_circle"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/sf_bold"
+            android:gravity="center"
+            android:text="Сабақтан шығу"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
