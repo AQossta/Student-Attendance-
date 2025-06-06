@@ -13,24 +13,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class StatisticsViewModel : ViewModel() {
+    private val _stats = MutableLiveData<AttendanceStats>()
+    val stats: LiveData<AttendanceStats> = _stats
 
-    private val _statsResponse = MutableLiveData<MessageResponse<AttendanceStats>>()
-    val statsResponse: LiveData<MessageResponse<AttendanceStats>> = _statsResponse
+    private val apiService = ServiceBuilder.buildService(ApiService::class.java)
 
-    private val _errorResponse = MutableLiveData<String>()
-    val errorResponse: LiveData<String> = _errorResponse
-
-    fun loadStats(scheduleId: Int, token: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val apiService = ServiceBuilder.buildService(ApiService::class.java)
-            runCatching {
-                apiService.getScheduleStats(scheduleId, "Bearer $token")
-            }.onSuccess { response ->
-                _statsResponse.postValue(response)
-            }.onFailure { e ->
-                Log.e("StatisticsViewModel", "Статистика жүктеу қатесі: ${e.message}", e)
-                _errorResponse.postValue(e.message ?: "Белгісіз қате")
+    fun fetchStatistics(scheduleId: Int, token: String) {
+        viewModelScope.launch {
+            try {
+                val response = apiService.getScheduleStats(scheduleId, token)
+                _stats.value = response.body
+            } catch (e: Exception) {
+                Log.e("StatsViewModel", "Error: ${e.message}")
             }
         }
     }
 }
+
+
+

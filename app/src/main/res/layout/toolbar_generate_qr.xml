@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
-        android:id="@+id/btnBackProfile"
+        android:id="@+id/btnBackHome"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
@@ -16,14 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/tvProfileTitle"
+        android:id="@+id/tvProfileGenerate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Генерациялау"
         android:fontFamily="@font/sf_bold_700"
         android:textSize="16dp"
+        android:layout_marginStart="10dp"
         android:textColor="@color/grey_900"
-        app:layout_constraintStart_toEndOf="@id/btnBackProfile"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

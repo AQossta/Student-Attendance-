@@ -2,6 +2,7 @@ package com.example.studentattendanceproject2.profile
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -79,6 +80,7 @@ class ProfileFragment : Fragment(), OnLanguageSelectedListener {
         }
 
         binding.btnUserDataEdit.setOnClickListener {
+            Log.d("ProfileFragment", "btnUserDataEdit clicked")
             findNavController().navigate(R.id.action_profileFragment_to_personalDataFragment)
         }
     }

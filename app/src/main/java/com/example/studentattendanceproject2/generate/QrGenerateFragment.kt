@@ -25,6 +25,8 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 import android.util.Base64
+import androidx.navigation.fragment.findNavController
+import com.example.studentattendanceproject2.R
 
 class QrGenerateFragment : Fragment() {
 
@@ -60,6 +62,10 @@ class QrGenerateFragment : Fragment() {
                 "${schedule.startTime.split("T")[1].substring(0, 5)} - ${schedule.endTime.split("T")[1].substring(0, 5)}"
         } ?: run {
             Toast.makeText(requireContext(), "Данные расписания отсутствуют", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.toolbarQrGenerate.btnBackHome.setOnClickListener {
+            findNavController().navigate(R.id.action_qrGenerateFragment_to_homeFragment)
         }
 
         binding.btnGenerate.setOnClickListener {

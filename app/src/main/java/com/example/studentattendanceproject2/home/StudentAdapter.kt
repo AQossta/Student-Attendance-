@@ -3,43 +3,44 @@ package com.example.studentattendanceproject2.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studentattendanceproject2.R
 import com.example.studentattendanceproject2.data.response.StudentAttendance
-import com.example.studentattendanceproject2.databinding.ItemStudentViewBinding
 
 class StudentAdapter(
-    private val students: List<StudentAttendance>
+    private var students: List<StudentAttendance>
 ) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
-    private val expandedPositions = mutableSetOf<Int>()
-
-    inner class StudentViewHolder(val binding: ItemStudentViewBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvName: TextView = itemView.findViewById(R.id.tvName)
+        val tvEmail: TextView = itemView.findViewById(R.id.tvEmail)
+        val tvPhone: TextView = itemView.findViewById(R.id.tvPhone)
+        val tvEntry: TextView = itemView.findViewById(R.id.tvEnterTime)
+        val tvExit: TextView = itemView.findViewById(R.id.tvExitTime)
+        val tvDuration: TextView = itemView.findViewById(R.id.tvDuration)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
-        val binding = ItemStudentViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return StudentViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_student_view, parent, false)
+        return StudentViewHolder(view)
     }
 
     override fun getItemCount(): Int = students.size
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         val student = students[position]
-        with(holder.binding) {
-            tvName.text = student.name
-            tvEmail.text = "${student.email}"
-            tvPhone.text = "${student.phoneNumber}"
-            tvEnterTime.text = "${student.attendTime ?: "—"}"
-            tvExitTime.text = "${student.exitTime ?: "—"}"
-            tvDuration.text = "${student.attendanceDuration ?: "-"} мин"
+        holder.tvName.text = student.name
+        holder.tvEmail.text = student.email
+        holder.tvPhone.text = student.phoneNumber
+        holder.tvEntry.text = student.attendTime ?: "-"
+        holder.tvExit.text = student.exitTime ?: "-"
+        holder.tvDuration.text = "${student.attendanceDuration} мин"
+    }
 
-            val isExpanded = expandedPositions.contains(position)
-            expandableLayout.visibility = if (isExpanded) View.VISIBLE else View.GONE
-
-            tvName.setOnClickListener {
-                if (isExpanded) expandedPositions.remove(position) else expandedPositions.add(position)
-                notifyItemChanged(position)
-            }
-        }
+    fun submitList(newList: List<StudentAttendance>) {
+        students = newList
+        notifyDataSetChanged()
     }
 }
-

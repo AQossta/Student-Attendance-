@@ -71,7 +71,7 @@ class ScheduleAdapter(
             }
 
             binding.btnStats.setOnClickListener {
-                onStatsClick(item) // ✅ Статистика батырмасы басылғанда
+                onStatsClick(item) // Статистика батырмасы басылғанда
             }
         }
     }

@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/tvProfileTitle"
+        android:id="@+id/tvProfileData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/personal_data"

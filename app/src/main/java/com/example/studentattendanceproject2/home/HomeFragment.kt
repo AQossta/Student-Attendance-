@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.studentattendanceproject2.data.ServiceBuilder
 import com.example.studentattendanceproject2.login.AuthViewModel
 import com.example.studentattendanceproject2.R
+import com.example.studentattendanceproject2.data.SharedProvider
 import com.example.studentattendanceproject2.service.ApiService
 import com.example.studentattendanceproject2.databinding.FragmentHomeBinding
 import com.example.studentattendanceproject2.provideNavigationHost
@@ -44,12 +45,19 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_homeFragment_to_qrGenerateFragment, bundle)
             },
             onStatsClick = { item ->
-                // Статистика экраны
-                val bundle = Bundle().apply {
-                    putSerializable("scheduleData", item)
+                val token = authViewModel.userData.value?.accessToken
+                if (token != null) {
+                    val bundle = Bundle().apply {
+                        putInt("scheduleId", item.id.toInt())
+                        putString("auth-token", token)
+                    }
+                    findNavController().navigate(R.id.action_homeFragment_to_statisticsFragment, bundle)
+                } else {
+                    // Токен жоқ болса, хабар беру немесе қайта аутентификацияға жіберу
+                    println("Auth token is null")
                 }
-                findNavController().navigate(R.id.action_homeFragment_to_statisticsFragment, bundle)
             }
+
         )
 
         binding.rcMainCategories1.adapter = adapter

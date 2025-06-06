@@ -56,10 +56,11 @@ interface ApiService {
         @Header("auth-token") authToken: String
     ) : MessageResponse<Any>
 
-    @GET("/api/v1/teacher/attendance/statistics/{scheduleId}")
+    @GET("/api/v1/teacher/schedule/{scheduleId}")
     suspend fun getScheduleStats(
         @Path("scheduleId") scheduleId: Int,
         @Header("auth-token") authToken: String
     ): MessageResponse<AttendanceStats>
+
 
 }
